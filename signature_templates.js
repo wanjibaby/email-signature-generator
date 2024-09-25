@@ -51,6 +51,50 @@ document.addEventListener('DOMContentLoaded', function() {
         const twitterLink = twitter ? `${twitter}${utmParams}` : '';
         const linkedinLink = linkedin ? `${linkedin}${utmParams}` : '';
 
+        async function uploadImageToImgur(file) {
+        const formData = new FormData();
+        formData.append('image', file);
+    
+        const response = await fetch('https://api.imgur.com/3/image', {
+            method: 'POST',
+            headers: {
+                'Authorization': '0751495857ee1de' 
+            },
+            body: formData,
+        });
+    
+        const data = await response.json();
+        if (data.success) {
+            return data.data.link; 
+        } else {
+            throw new Error('Image upload failed');
+        }
+    }
+    
+    // Update the signature when an image is uploaded
+    document.getElementById('signature-form').addEventListener('change', async (event) => {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            try {
+                const imageUrl = await uploadImageToImgur(input.files[0]);
+                // Update the respective image URL in your signature
+                if (input.id === 'logoUpload') {
+                    // Update logo image URL in the signature
+                    console.log("Logo URL:", imageUrl);
+                } else if (input.id === 'campaignImage') {
+                    // Update campaign image URL in the signature
+                    console.log("Campaign Image URL:", imageUrl);
+                } else if (input.id === 'pfp') {
+                    // Update profile picture URL in the signature
+                    console.log("Profile Picture URL:", imageUrl);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    });
+
+
         switch(template) {
             case '1':
                 htmlContent = `
@@ -99,195 +143,222 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 case '2':
                     htmlContent = `
-                    <div style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
-                        <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-                            <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
-                        </div>
-                        
-                        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-                            <div style="text-align: right;">
-                                <strong>${name}</strong><br/>
-                                ${title}<br/>
-                                ${phone}<br/>
-                            </div>
-                        </div>
-                
-                        <div style="text-align: center; margin: 10px 0;">
-                            <strong>${campaignName}</strong><br/>
-                            ${campaignDescription}<br/>
-                            Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
-                            <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
-                        </div>
-                
-                        <div style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
-                            <div style="font-size: 16px;">
-                                ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> |` : ''} 
-                                ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> |` : ''} 
-                                ${twitter ? `<a href="${twitterLink}" style="color: #004d00;" target="_blank">Twitter</a> |` : ''} 
-                                ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;" target="_blank">LinkedIn</a>` : ''}<br/>
-                                ${companyPhone}<br/>
-                                ${companyAddress}<br/>
-                                TARPO
-                            </div>
-                        </div>
-                    </div>
+                    <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
+                            <tr>
+                                <td style="text-align: center; margin-bottom: 10px;">
+                                    <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; margin-bottom: 20px;">
+                                    <strong>${name}</strong><br/>
+                                    ${title}<br/>
+                                    ${phone}<br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; margin: 10px 0;">
+                                    <strong>${campaignName}</strong><br/>
+                                    ${campaignDescription}<br/>
+                                    Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
+                                    <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                    <div style="font-size: 16px;">
+                                        ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> |` : ''} 
+                                        ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> |` : ''} 
+                                        ${twitter ? `<a href="${twitterLink}" style="color: #004d00;" target="_blank">Twitter</a> |` : ''} 
+                                        ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;" target="_blank">LinkedIn</a>` : ''}<br/>
+                                        ${companyPhone}<br/>
+                                        ${companyAddress}<br/>
+                                        TARPO
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     `;
                     break;
 
                     case '3':
                     htmlContent = `
-                    <div style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
-                        
-                        <div style="margin-top: 10px;">
-                            <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
-                        </div>
-                
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <div style="flex: 1;">
-                                <strong>${name}</strong><br/>
-                                ${title}<br/>
-                                ${phone}<br/>
-                            </div>
-                            <div style="text-align: right;">
-                                <strong>${campaignName}</strong><br/>
-                                <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
-                            </div>
-                        </div>
-                
-                        <div style="text-align: center;">
-                            <a href="${campaignLink}" target="_blank">
-                            <img src="${campaignImageUrl}" alt="Campaign Image" style="width: 100%; max-height: 150px; object-fit: cover; margin-top: 10px;">
-                        </div>
-                
-                        <div style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
-                            <div style="font-size: 16px;">
-                                ${facebook ? `<a href="${facebookLink}" target="_blank" style="color: #004d00;">Facebook</a> | ` : ''}
-                                ${instagram ? `<a href="${instagramLink}" target="_blank" style="color: #004d00;">Instagram</a> | ` : ''}
-                                ${twitter ? `<a href="${twitterLink}" target="_blank" style="color: #004d00;">Twitter</a> | ` : ''}
-                                ${linkedin ? `<a href="${linkedinLink}" target="_blank" style="color: #004d00;">LinkedIn</a>` : ''}<br/>
-                                ${companyPhone}<br/>
-                                ${companyAddress}<br/>
-                                TARPO
-                            </div>
-                        </div>
+                    <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
+                            <tr>
+                                <td style="text-align: center; margin-top: 10px;">
+                                    <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                    <div style="flex: 1;">
+                                        <strong>${name}</strong><br/>
+                                        ${title}<br/>
+                                        ${phone}<br/>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <strong>${campaignName}</strong><br/>
+                                        <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <a href="${campaignLink}" target="_blank">
+                                        <img src="${campaignImageUrl}" alt="Campaign Image" style="width: 100%; max-height: 150px; object-fit: cover; margin-top: 10px;">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                    <div style="font-size: 16px;">
+                                        ${facebook ? `<a href="${facebookLink}" target="_blank" style="color: #004d00;">Facebook</a> | ` : ''}
+                                        ${instagram ? `<a href="${instagramLink}" target="_blank" style="color: #004d00;">Instagram</a> | ` : ''}
+                                        ${twitter ? `<a href="${twitterLink}" target="_blank" style="color: #004d00;">Twitter</a> | ` : ''}
+                                        ${linkedin ? `<a href="${linkedinLink}" target="_blank" style="color: #004d00;">LinkedIn</a>` : ''}<br/>
+                                        ${companyPhone}<br/>
+                                        ${companyAddress}<br/>
+                                        TARPO
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     `;
                     break;
 
                     case '4':
                         htmlContent = `
-                        <div style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
-                            <div style="text-align: center; margin-bottom: 10px;">
-                                <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
-                            </div>
-                            
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div style="flex: 1; padding-right: 10px;">
-                                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                        <img src="${pfpUrl}" alt="Profile Picture" style="height: 50px; border-radius: 50%; margin-right: 10px;">
-                                        <div style="text-align: left;">
-                                            <strong>${name}</strong><br/>
-                                            ${title}<br/>
-                                            ${phone}<br/>
+                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
+                                <tr>
+                                    <td style="text-align: center; margin-bottom: 10px;">
+                                        <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <div style="flex: 1; padding-right: 10px;">
+                                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                                <img src="${pfpUrl}" alt="Profile Picture" style="height: 50px; border-radius: 50%; margin-right: 10px;">
+                                                <div style="text-align: left;">
+                                                    <strong>${name}</strong><br/>
+                                                    ${title}<br/>
+                                                    ${phone}<br/>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: left;">
+                                                <strong>${campaignName}</strong><br/>
+                                                ${campaignDescription}<br/>
+                                                Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
+                                                <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="text-align: left;">
-                                        <strong>${campaignName}</strong><br/>
-                                        ${campaignDescription}<br/>
-                                        Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
-                                        <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
-                                    </div>
-                                </div>
-                                
-                                <div style="flex: 0 0 auto; text-align: right;">
-                                    <a href="${campaignLink}" target="_blank">  
-                                    <img src="${campaignImageUrl}" alt="Campaign Image" style="height: 150px; object-fit: cover;">
-                                </div>
-                            </div>
-                            
-                            <div style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
-                                <div style="font-size: 16px;">
-                                    ${facebook ? `<a href="${facebookLink}" style="color: #004d00; target="_blank">Facebook</a> | ` : ''} 
-                                    ${instagram ? `<a href="${instagramLink}" style="color: #004d00; target="_blank">Instagram</a> | ` : ''}
-                                    ${twitter ? `<a href="${twitterLink}" style="color: #004d00; target="_blank">Twitter</a> | ` : ''}
-                                    ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00; target="_blank">LinkedIn</a>` : ''}<br/>
-                                    ${companyPhone}<br/>
-                                    ${companyAddress}<br/>
-                                    TARPO
-                                </div>
-                            </div>
+                                        <div style="flex: 0 0 auto; text-align: right;">
+                                            <a href="${campaignLink}" target="_blank">
+                                                <img src="${campaignImageUrl}" alt="Campaign Image" style="height: 150px; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                        <div style="font-size: 16px;">
+                                            ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> | ` : ''} 
+                                            ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> | ` : ''}
+                                            ${twitter ? `<a href="${twitterLink}" style="color: #004d00;" target="_blank">Twitter</a> | ` : ''}
+                                            ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;" target="_blank">LinkedIn</a>` : ''}<br/>
+                                            ${companyPhone}<br/>
+                                            ${companyAddress}<br/>
+                                            TARPO
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         `;
                         break;
 
                         case '5':
                         htmlContent = `
-                        <div style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
-                            <div style="text-align: center; margin-bottom: 10px;">
-                                <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                                <img src="${pfpUrl}" alt="Profile Picture" style="height: 50px; border-radius: 50%; margin-right: 10px;">
-                                <div style="text-align: center;">
-                                    <strong>${name}</strong><br/>
-                                    ${title}<br/>
-                                    ${phone}<br/>
-                                </div>
-                            </div>
-                            
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <a href="${campaignLink}" target="_blank">
-                                    <img src="${campaignImageUrl}" alt="Campaign Image" style="width: 100%; max-height: 150px; object-fit: cover;">
-                                </a>
-                            </div>
-                            
-                            <div style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
-                                <div style="font-size: 16px;">
-                                    ${facebook ? `<a href="${facebookLink}" style="color: #004d00; target="_blank">Facebook</a>  |` : ''} 
-                                    ${instagram ? `<a href="${instagramLink}" style="color: #004d00; target="_blank">Instagram</a> |` : ''}
-                                    ${twitter ? `<a href="${twitterLink}" style="color: #004d00; target="_blank">Twitter</a> |` : ''}
-                                    ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00; target="_blank">LinkedIn</a>` : ''}<br/>
-                                    ${companyPhone}<br/>
-                                    ${companyAddress}<br/>
-                                    TARPO
-                                </div>
-                            </div>
-                        </div>
+                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
+                                <tr>
+                                    <td style="text-align: center; margin-bottom: 10px;">
+                                        <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                                        <img src="${pfpUrl}" alt="Profile Picture" style="height: 50px; border-radius: 50%; margin-right: 10px;">
+                                        <div style="text-align: center;">
+                                            <strong>${name}</strong><br/>
+                                            ${title}<br/>
+                                            ${phone}<br/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center; margin-bottom: 20px;">
+                                        <a href="${campaignLink}" target="_blank">
+                                            <img src="${campaignImageUrl}" alt="Campaign Image" style="width: 100%; max-height: 150px; object-fit: cover;">
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                        <div style="font-size: 16px;">
+                                            ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a>  |` : ''} 
+                                            ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> |` : ''}
+                                            ${twitter ? `<a href="${twitterLink}" style="color: #004d00;" target="_blank">Twitter</a> |` : ''}
+                                            ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;" target="_blank">LinkedIn</a>` : ''}<br/>
+                                            ${companyPhone}<br/>
+                                            ${companyAddress}<br/>
+                                            TARPO
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         `;
                         break;
 
                         case '6':
                         htmlContent = `
-                        <div style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
-                            <div style="text-align: center;">
-                                <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
-                            </div>
-                            <div style="display: flex; margin-top: 10px;">
-                                <div style="flex: 1;">
-                                    <strong>${name}</strong><br/>
-                                    ${title}<br/>
-                                    ${phone}<br/>
-                                    <br/>
-                                    <strong>${campaignName}</strong><br/>
-                                    ${campaignDescription}<br/>
-                                    Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
-                                    <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
-                                </div>
-                                <div style="flex: 1; text-align: right;">
-                                    <a href="${campaignLink}" target="_blank">
-                                    <img src="${campaignImageUrl}" alt="Campaign Image" style="max-height: 150px, max-width: 50px; object-fit: cover;">
-                                </div>
-                            </div>
-                            <div style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
-                            <div style="font-size: 16px;">
-                                ${facebook ? `<a href="${facebookLink}" style="color: #004d00; target="_blank" >Facebook</a>  |` : ''} 
-                                ${instagram ? `<a href="${instagramLink}" style="color: #004d00; target="_blank">Instagram</a> |` : ''}
-                                ${twitter ? `<a href="${twitterLink}" style="color: #004d00; target="_blank">Twitter</a> |` : ''}
-                                ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00; target="_blank">LinkedIn</a>` : ''}<br/>
-                                ${companyPhone}<br/>
-                                ${companyAddress}<br/>
-                                TARPO
-                            </div>
-                            </div>
+                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; max-width: 600px; margin: auto;">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <img src="${logoImageUrl}" alt="Logo" style="height: 50px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: flex; margin-top: 10px;">
+                                        <div style="flex: 1;">
+                                            <strong>${name}</strong><br/>
+                                            ${title}<br/>
+                                            ${phone}<br/>
+                                            <br/>
+                                            <strong>${campaignName}</strong><br/>
+                                            ${campaignDescription}<br/>
+                                            Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
+                                            <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                        </div>
+                                        <div style="flex: 1; text-align: right;">
+                                            <a href="${campaignLink}" target="_blank">
+                                                <img src="${campaignImageUrl}" alt="Campaign Image" style="max-height: 150px; max-width: 50px; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                        <div style="font-size: 16px;">
+                                            ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> | ` : ''} 
+                                            ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> | ` : ''}
+                                            ${twitter ? `<a href="${twitterLink}" style="color: #004d00;" target="_blank">Twitter</a> | ` : ''}
+                                            ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;" target="_blank">LinkedIn</a>` : ''}<br/>
+                                            ${companyPhone}<br/>
+                                            ${companyAddress}<br/>
+                                            TARPO
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         `;
                         break;
         }
@@ -313,3 +384,4 @@ function copyToClipboard() {
     document.execCommand('copy');
     alert('Signature copied to clipboard! You can paste it into Gmail now.');
 }
+
