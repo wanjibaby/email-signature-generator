@@ -26,11 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (campaignLink !== '#') {
             campaignLink += utmParams;
         }
-        
-        // Fetching the image URLs from input fields
-        const campaignImageUrl = document.getElementById('campaignImage').value || '';
-        const logoImageUrl = document.getElementById('logoUpload').value || '';
-        const pfpUrl = document.getElementById('pfp').value || '';
 
         const companyPhone = document.getElementById('companyPhone').value || '(012) 345 6789';
         const companyAddress = document.getElementById('companyAddress').value || '123 Main Street, City, Suite';
