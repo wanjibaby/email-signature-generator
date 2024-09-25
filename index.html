@@ -168,37 +168,5 @@
 <input type="file" id="campaignImage" accept="image/*">
 <input type="file" id="pfp" accept="image/*">
 
-<script>
-async function uploadImage(file) {
-    // Use a file uploading service or API here.
-    // This is a placeholder example. You need to implement your own upload logic.
-    const formData = new FormData();
-    formData.append('file', file);
-    
-    const response = await fetch('YOUR_IMAGE_UPLOAD_ENDPOINT', {
-        method: 'POST',
-        body: formData,
-    });
-    
-    const data = await response.json();
-    return data.imageUrl; // Adjust based on the response structure
-}
-
-document.getElementById('signature-form').addEventListener('change', async (event) => {
-    const input = event.target;
-    if (input.files && input.files[0]) {
-        const imageUrl = await uploadImage(input.files[0]);
-        // Update the respective image URL in your signature
-        if (input.id === 'logoUpload') {
-            // Update logo image URL in the signature
-        } else if (input.id === 'campaignImage') {
-            // Update campaign image URL in the signature
-        } else if (input.id === 'pfp') {
-            // Update profile picture URL in the signature
-        }
-    }
-});
-</script>
-
 </body>
 </html>
