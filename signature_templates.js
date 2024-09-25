@@ -91,6 +91,7 @@ function updateSignature() {
 
 // Event listener for image uploads
 document.getElementById('signature-form').addEventListener('change', async (event) => {
+    event.preventDefault();
     const input = event.target;
     if (input.files && input.files[0]) {
         try {
