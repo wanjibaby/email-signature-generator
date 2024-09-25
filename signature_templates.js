@@ -51,48 +51,67 @@ document.addEventListener('DOMContentLoaded', function() {
         const twitterLink = twitter ? `${twitter}${utmParams}` : '';
         const linkedinLink = linkedin ? `${linkedin}${utmParams}` : '';
 
+        // Uploading images to imgur so they can be read
         async function uploadImageToImgur(file) {
-        const formData = new FormData();
-        formData.append('image', file);
-    
-        const response = await fetch('https://api.imgur.com/3/image', {
-            method: 'POST',
-            headers: {
-                'Authorization': '0751495857ee1de' 
-            },
-            body: formData,
-        });
-    
-        const data = await response.json();
-        if (data.success) {
-            return data.data.link; 
-        } else {
-            throw new Error('Image upload failed');
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const response = await fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+            'Authorization': '0751495857ee1de' 
+        },
+        body: formData,
+    });
+
+    const data = await response.json();
+    if (data.success) {
+        return data.data.link; // Return the uploaded image URL
+    } else {
+        throw new Error('Image upload failed');
+    }
+}
+
+// Track image URLs
+let logoUrl = '';
+let campaignImageUrl = '';
+let pfpUrl = '';
+
+// Function to update the signature preview
+function updateSignature() {
+    const signatureHtml = `
+        <div>
+            <img src="${logoUrl}" alt="Logo" style="max-width: 100px;"/>
+            <img src="${campaignImageUrl}" alt="Campaign Image" style="max-width: 100px;"/>
+            <img src="${pfpUrl}" alt="Profile Picture" style="max-width: 100px;"/>
+        </div>
+    `;
+    document.getElementById('signature-preview').innerHTML = signatureHtml; // Update the live preview
+}
+
+// Event listener for image uploads
+document.getElementById('signature-form').addEventListener('change', async (event) => {
+    const input = event.target;
+    if (input.files && input.files[0]) {
+        try {
+            const imageUrl = await uploadImageToImgur(input.files[0]);
+
+            // Update the respective image URL in your signature
+            if (input.id === 'logoUpload') {
+                logoUrl = imageUrl; // Update logo image URL
+            } else if (input.id === 'campaignImage') {
+                campaignImageUrl = imageUrl; // Update campaign image URL
+            } else if (input.id === 'pfp') {
+                pfpUrl = imageUrl; // Update profile picture URL
+            }
+
+            // Update the live preview with the new URLs
+            updateSignature();
+        } catch (error) {
+            console.error(error);
         }
     }
-    
-    // Update the signature when an image is uploaded
-    document.getElementById('signature-form').addEventListener('change', async (event) => {
-        const input = event.target;
-        if (input.files && input.files[0]) {
-            try {
-                const imageUrl = await uploadImageToImgur(input.files[0]);
-                // Update the respective image URL in your signature
-                if (input.id === 'logoUpload') {
-                    // Update logo image URL in the signature
-                    console.log("Logo URL:", imageUrl);
-                } else if (input.id === 'campaignImage') {
-                    // Update campaign image URL in the signature
-                    console.log("Campaign Image URL:", imageUrl);
-                } else if (input.id === 'pfp') {
-                    // Update profile picture URL in the signature
-                    console.log("Profile Picture URL:", imageUrl);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    });
+});
 
 
         switch(template) {
