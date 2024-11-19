@@ -422,43 +422,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial preview update
     console.log('Running initial preview update');
     updatePreview();
-
+});
 
 function copyToClipboard() {
     const preview = document.getElementById('preview');
-    const range = document.createRange();
-    range.selectNodeContents(preview);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
-    alert('Signature copied to clipboard! You can paste it into Gmail now.');
-}});
 
-function copyToClipboard() {
-        // Get the preview HTML content
-        const preview = document.getElementById('preview');
-        
-        // Create a temporary textarea element
-        const textarea = document.createElement('textarea');
-        textarea.value = preview.innerHTML;
-        document.body.appendChild(textarea);
-        
-        try {
-            // Select and copy the content
-            textarea.select();
-            const success = document.execCommand('copy');
-            
-            if (success) {
-                alert('Signature copied to clipboard! You can now paste it into your email settings.');
-            } else {
-                alert('Failed to copy signature. Please try again or copy manually.');
-            }
-        } catch (err) {
-            console.error('Copy failed:', err);
-            alert('Failed to copy signature. Please try again or copy manually.');
-        } finally {
-            // Clean up the temporary textarea
-            document.body.removeChild(textarea);
-        }
+    // Ensure preview has content
+    if (!preview || !preview.innerHTML.trim()) {
+        alert('No content to copy! Please fill out the form.');
+        return;
     }
+
+    try {
+        const range = document.createRange();
+        range.selectNodeContents(preview);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        const success = document.execCommand('copy');
+        if (success) {
+            alert('Signature copied to clipboard! You can paste it into Gmail now.');
+        } else {
+            alert('Copy failed. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error copying to clipboard:', error);
+        alert('An error occurred while copying. Check the console for details.');
+    }
+}
+
+
