@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePreview();
 });
 
-function copyToClipboard() {
+async function copyToClipboard() {
     const preview = document.getElementById('preview');
 
     // Ensure preview has content
@@ -434,6 +434,24 @@ function copyToClipboard() {
     }
 
     try {
+        // Try using modern Clipboard API first
+        if (navigator.clipboard && window.isSecureContext) {
+            // Create a temporary div to handle HTML content
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = preview.innerHTML;
+            
+            // Create two clipboard items: one for plain text and one for HTML
+            const clipboardItem = new ClipboardItem({
+                'text/html': new Blob([preview.innerHTML], { type: 'text/html' }),
+                'text/plain': new Blob([tempDiv.textContent], { type: 'text/plain' })
+            });
+            
+            await navigator.clipboard.write([clipboardItem]);
+            alert('Signature copied to clipboard! You can paste it into Gmail now.');
+            return;
+        }
+
+        // Fallback for older browsers or non-secure contexts
         const range = document.createRange();
         range.selectNodeContents(preview);
 
@@ -441,15 +459,27 @@ function copyToClipboard() {
         selection.removeAllRanges();
         selection.addRange(range);
 
+        // Try the deprecated execCommand as a fallback
         const success = document.execCommand('copy');
+        
+        // Clean up selection
+        selection.removeAllRanges();
+
         if (success) {
             alert('Signature copied to clipboard! You can paste it into Gmail now.');
         } else {
-            alert('Copy failed. Please try again.');
+            throw new Error('execCommand copy failed');
         }
     } catch (error) {
         console.error('Error copying to clipboard:', error);
-        alert('An error occurred while copying. Check the console for details.');
+        
+        // Provide user-friendly error message with instructions
+        alert(
+            'Unable to automatically copy the signature. Please copy it manually:\n' +
+            '1. Click and drag to select the entire signature\n' +
+            '2. Press Ctrl+C (Windows) or Cmd+C (Mac) to copy\n' +
+            '3. Paste into Gmail using Ctrl+V or Cmd+V'
+        );
     }
 }
 
