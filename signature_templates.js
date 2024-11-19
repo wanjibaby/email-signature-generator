@@ -434,3 +434,31 @@ function copyToClipboard() {
     document.execCommand('copy');
     alert('Signature copied to clipboard! You can paste it into Gmail now.');
 }});
+
+function copyToClipboard() {
+        // Get the preview HTML content
+        const preview = document.getElementById('preview');
+        
+        // Create a temporary textarea element
+        const textarea = document.createElement('textarea');
+        textarea.value = preview.innerHTML;
+        document.body.appendChild(textarea);
+        
+        try {
+            // Select and copy the content
+            textarea.select();
+            const success = document.execCommand('copy');
+            
+            if (success) {
+                alert('Signature copied to clipboard! You can now paste it into your email settings.');
+            } else {
+                alert('Failed to copy signature. Please try again or copy manually.');
+            }
+        } catch (err) {
+            console.error('Copy failed:', err);
+            alert('Failed to copy signature. Please try again or copy manually.');
+        } finally {
+            // Clean up the temporary textarea
+            document.body.removeChild(textarea);
+        }
+    }
