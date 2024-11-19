@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         switch(template) {
             case '1':
                 htmlContent = `
-                <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
                         <tr>
                             <td style="text-align: center; padding: 10px;">
                                 <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 case '2':
                     htmlContent = `
-                    <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                    <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
                             <tr>
                                 <td style="text-align: center; margin-bottom: 10px;">
                                     <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     case '3':
                     htmlContent = `
-                    <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                    <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
                             <tr>
                                 <td style="text-align: center; margin-top: 10px;">
                                     <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     case '4':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
                                 <tr>
                                     <td style="text-align: center; margin-bottom: 10px;">
                                         <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         case '5':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
                                 <tr>
                                     <td style="text-align: center; margin-bottom: 10px;">
                                         <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         case '6':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 18px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto; ">
+                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto; ">
                                 <tr>
                                     <td style="text-align: center;">
                                         <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
