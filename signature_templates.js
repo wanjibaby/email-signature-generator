@@ -130,47 +130,99 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function renderTemplate(template, profileImg, name, title, phone, campaignName, 
-            campaignDescription, campaignStartDate, campaignEndDate, 
-            campaignLink, logoImg, campaignImg, facebookLink, instagramLink, 
-            twitterLink, linkedinLink, companyPhone, companyAddress) {
-            
-            console.log('renderTemplate called with template:', template);
-            const preview = document.getElementById('preview');
-            let htmlContent = '';
+    campaignDescription, campaignStartDate, campaignEndDate, 
+    campaignLink, logoImg, campaignImg, facebookLink, instagramLink, 
+    twitterLink, linkedinLink, companyPhone, companyAddress) {
+    
+    console.log('renderTemplate called with template:', template);
+    const preview = document.getElementById('preview');
+    let htmlContent = '';
+
+    // Common styles with updated centering and margins
+    const containerStyle = `
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    `;
+
+    const tableStyle = `
+        font-family: Swiss black;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        width: 500px;
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #ffffff;
+    `;
+
+    // Other styles remain the same
+    const logoStyle = `
+        height: 40px;
+        max-height: 40px;
+        width: auto;
+    `;
+
+    const campaignImageStyle = `
+        max-width: 200px;
+        max-height: 120px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    `;
+
+    const profileImageStyle = `
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    `;
+
+    const textContainerStyle = `
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    `;
 
         switch(template) {
             case '1':
-                htmlContent = `
-                <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+            htmlContent = `
+                <div style="${containerStyle}">
+                    <table style="${tableStyle}">
                         <tr>
                             <td style="text-align: center; padding: 10px;">
-                                <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                             </td>
                         </tr>
                         <tr>
                             <td style="text-align: right; padding: 10px;">
-                                <strong>${name}</strong><br/>
-                                ${title}<br/>
-                                ${phone}<br/>
+                                <div style="${textContainerStyle}; margin-left: auto;">
+                                    <strong>${name}</strong><br/>
+                                    ${title}<br/>
+                                    ${phone}<br/>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 10px;">
-                                <strong>${campaignName}</strong><br/>
-                                ${campaignDescription}<br/>
-                                Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
-                                <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                <div style="${textContainerStyle}">
+                                    <strong>${campaignName}</strong><br/>
+                                    ${campaignDescription}<br/>
+                                    Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
+                                    <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td style="text-align: center; padding: 10px;">
                                 <a href="${campaignLink}" target="_blank">
-                                    <img src="${campaignImg || ''}" alt="Campaign Image" style="max-width: 100%; height: auto;">
+                                    <img src="${campaignImg || ''}" alt="Campaign Image" style="${campaignImageStyle}">
                                 </a>
                             </td>
                         </tr>
                         <tr>
-                            <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 10px;">
+                            <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 10px; font-size: 12px;">
                                 ${facebook ? `<a href="${facebookLink}" style="color: #004d00;">Facebook</a> | ` : ''} 
                                 ${instagram ? `<a href="${instagramLink}" style="color: #004d00;">Instagram</a> | ` : ''} 
                                 ${twitter ? `<a href="${twitterLink}" style="color: #004d00;">Twitter</a> | ` : ''} 
@@ -181,8 +233,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </td>
                         </tr>
                     </table>
-                `;
-                break;
+                </div>
+            `;
+            break;
 
                 case '2':
                     htmlContent = `
