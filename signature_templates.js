@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Fixed-size styles that won't scale
     const tableStyle = `
-        font-family: Swiss black;
+        font-family: Swiss 721 black;
         font-size: 12px;
         border: 1px solid #ddd;
         border-collapse: collapse;
@@ -226,14 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 case '2':
                     htmlContent = `
-                    <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                    <table style=""${tableStyle}">
                             <tr>
-                                <td style="text-align: center; margin-bottom: 10px;">
-                                    <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                <td style="text-align: center; padding: 8px;">
+                                    <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: right; padding: 10px;">
+                                <"text-align: right; padding: 8px;">
                                     <strong>${name}</strong><br/>
                                     ${title}<br/>
                                     ${phone}<br/>
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
                                     <div style="font-size: 16px;">
                                         ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> |` : ''} 
                                         ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> |` : ''} 
@@ -266,10 +266,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     case '3':
                     htmlContent = `
-                    <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                    <table style="${tableStyle}">
                             <tr>
                                 <td style="text-align: center; margin-top: 10px;">
-                                    <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                    <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                                 </td>
                             </tr>
                             <tr>
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
                                     <div style="font-size: 16px;">
                                         ${facebook ? `<a href="${facebookLink}" target="_blank" style="color: #004d00;">Facebook</a> | ` : ''}
                                         ${instagram ? `<a href="${instagramLink}" target="_blank" style="color: #004d00;">Instagram</a> | ` : ''}
@@ -311,10 +311,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     case '4':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                        <table style="${tableStyle}">
                                 <tr>
                                     <td style="text-align: center; margin-bottom: 10px;">
-                                        <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                        <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                    <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
                                         <div style="font-size: 16px;">
                                             ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> | ` : ''} 
                                             ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> | ` : ''}
@@ -361,10 +361,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         case '5':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto;">
+                        <table style="${tableStyle}">
                                 <tr>
                                     <td style="text-align: center; margin-bottom: 10px;">
-                                        <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                        <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                    <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
                                         <div style="font-size: 16px;">
                                             ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a>  |` : ''} 
                                             ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> |` : ''}
@@ -408,10 +408,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         case '6':
                         htmlContent = `
-                        <table style="font-family: Swiss black; font-size: 12px; border: 1px solid #ddd; border-collapse: collapse; width: 90%; margin: auto; ">
+                        <table style="${tableStyle}">
                                 <tr>
                                     <td style="text-align: center;">
-                                        <img src="${logoImg || ''}" alt="Logo" style="height: 50px;">
+                                        <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border-top: 2px solid #5bbc5c; padding-top: 10px; text-align: center;">
+                                    <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
                                         <div style="font-size: 16px;">
                                             ${facebook ? `<a href="${facebookLink}" style="color: #004d00;" target="_blank">Facebook</a> | ` : ''} 
                                             ${instagram ? `<a href="${instagramLink}" style="color: #004d00;" target="_blank">Instagram</a> | ` : ''}
