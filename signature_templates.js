@@ -134,106 +134,93 @@ document.addEventListener('DOMContentLoaded', function() {
     campaignLink, logoImg, campaignImg, facebookLink, instagramLink, 
     twitterLink, linkedinLink, companyPhone, companyAddress) {
     
-    console.log('renderTemplate called with template:', template);
-    const preview = document.getElementById('preview');
-    let htmlContent = '';
-
-    // Common styles with updated centering and margins
-    const containerStyle = `
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    `;
-
+    // Fixed-size styles that won't scale
     const tableStyle = `
         font-family: Swiss black;
-        font-size: 14px;
+        font-size: 12px;
         border: 1px solid #ddd;
         border-collapse: collapse;
-        width: 500px;
-        max-width: 500px;
-        margin: 0 auto;
-        background-color: #ffffff;
+        width: 400px !important;
+        max-width: 400px !important;
+        margin: auto;
+        table-layout: fixed;
     `;
 
-    // Other styles remain the same
     const logoStyle = `
-        height: 40px;
-        max-height: 40px;
+        height: 35px !important;
         width: auto;
+        max-height: 35px !important;
     `;
 
     const campaignImageStyle = `
-        max-width: 200px;
-        max-height: 120px;
-        width: auto;
-        height: auto;
-        object-fit: contain;
+        width: 180px !important;
+        height: 100px !important;
+        object-fit: cover;
     `;
 
     const profileImageStyle = `
-        height: 40px;
-        width: 40px;
+        height: 35px !important;
+        width: 35px !important;
         border-radius: 50%;
         object-fit: cover;
     `;
 
     const textContainerStyle = `
-        max-width: 300px;
+        width: 350px !important;
+        max-width: 350px !important;
         overflow: hidden;
         text-overflow: ellipsis;
     `;
 
         switch(template) {
-            case '1':
+        case '1':
             htmlContent = `
-                <div style="${containerStyle}">
-                    <table style="${tableStyle}">
-                        <tr>
-                            <td style="text-align: center; padding: 10px;">
-                                <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right; padding: 10px;">
-                                <div style="${textContainerStyle}; margin-left: auto;">
-                                    <strong>${name}</strong><br/>
-                                    ${title}<br/>
-                                    ${phone}<br/>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px;">
-                                <div style="${textContainerStyle}">
-                                    <strong>${campaignName}</strong><br/>
-                                    ${campaignDescription}<br/>
-                                    Dates: ${campaignStartDate} - ${campaignEndDate}<br/>
-                                    <a href="${campaignLink}" style="color: #004d00;">Learn More</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; padding: 10px;">
-                                <a href="${campaignLink}" target="_blank">
-                                    <img src="${campaignImg || ''}" alt="Campaign Image" style="${campaignImageStyle}">
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 10px; font-size: 12px;">
-                                ${facebook ? `<a href="${facebookLink}" style="color: #004d00;">Facebook</a> | ` : ''} 
-                                ${instagram ? `<a href="${instagramLink}" style="color: #004d00;">Instagram</a> | ` : ''} 
-                                ${twitter ? `<a href="${twitterLink}" style="color: #004d00;">Twitter</a> | ` : ''} 
-                                ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00;">LinkedIn</a>` : ''}<br/>
+                <table style="${tableStyle}">
+                    <tr>
+                        <td style="text-align: center; padding: 8px;">
+                            <img src="${logoImg || ''}" alt="Logo" style="${logoStyle}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; padding: 8px;">
+                            <div style="${textContainerStyle}">
+                                <strong style="font-size: 12px !important;">${name}</strong><br/>
+                                <span style="font-size: 12px !important;">${title}</span><br/>
+                                <span style="font-size: 12px !important;">${phone}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">
+                            <div style="${textContainerStyle}">
+                                <strong style="font-size: 12px !important;">${campaignName}</strong><br/>
+                                <span style="font-size: 12px !important;">${campaignDescription}</span><br/>
+                                <span style="font-size: 12px !important;">Dates: ${campaignStartDate} - ${campaignEndDate}</span><br/>
+                                <a href="${campaignLink}" style="color: #004d00; font-size: 12px !important;">Learn More</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 8px;">
+                            <a href="${campaignLink}" target="_blank">
+                                <img src="${campaignImg || ''}" alt="Campaign Image" style="${campaignImageStyle}">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: 2px solid #5bbc5c; text-align: center; padding: 8px;">
+                            <div style="font-size: 11px !important;">
+                                ${facebook ? `<a href="${facebookLink}" style="color: #004d00; font-size: 11px !important;">Facebook</a> | ` : ''} 
+                                ${instagram ? `<a href="${instagramLink}" style="color: #004d00; font-size: 11px !important;">Instagram</a> | ` : ''} 
+                                ${twitter ? `<a href="${twitterLink}" style="color: #004d00; font-size: 11px !important;">Twitter</a> | ` : ''} 
+                                ${linkedin ? `<a href="${linkedinLink}" style="color: #004d00; font-size: 11px !important;">LinkedIn</a>` : ''}<br/>
                                 ${companyPhone}<br/>
                                 ${companyAddress}<br/>
                                 TARPO
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             `;
             break;
 
