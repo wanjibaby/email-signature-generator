@@ -134,43 +134,88 @@ document.addEventListener('DOMContentLoaded', function() {
     campaignLink, logoImg, campaignImg, facebookLink, instagramLink, 
     twitterLink, linkedinLink, companyPhone, companyAddress) {
     
-    // Fixed-size styles that won't scale
+    // Strict sizing and styling constants
     const tableStyle = `
-        font-family: Swiss 721 black;
+        font-family: Arial, Helvetica, sans-serif;
         font-size: 12px;
-        border: 1px solid #ddd;
+        line-height: 1.4;
         border-collapse: collapse;
         width: 400px !important;
         max-width: 400px !important;
-        margin: auto;
-        table-layout: fixed;
+        min-width: 400px !important;
+        height: auto !important;
+        max-height: 250px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        overflow: hidden !important;
+        table-layout: fixed !important;
     `;
 
-    const logoStyle = `
-        height: 35px !important;
-        width: auto;
-        max-height: 35px !important;
+    const imageStyles = {
+        logo: `
+            width: 35px !important;
+            height: 35px !important;
+            max-width: 35px !important;
+            max-height: 35px !important;
+            object-fit: cover;
+            display: block;
+        `,
+        campaign: `
+            width: 180px !important;
+            height: 100px !important;
+            max-width: 180px !important;
+            max-height: 100px !important;
+            object-fit: cover;
+            display: block;
+        `,
+        profile: `
+            width: 35px !important;
+            height: 35px !important;
+            border-radius: 50% !important;
+            object-fit: cover;
+            display: block;
+        `
+    };
+
+    const textStyles = {
+        base: `
+            font-size: 12px !important;
+            line-height: 1.4 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        `,
+        name: `
+            font-weight: bold !important;
+            font-size: 12px !important;
+        `,
+        link: `
+            color: #004d00 !important;
+            text-decoration: none !important;
+            font-size: 12px !important;
+        `
+    };
+
+    const socialLinkStyle = `
+        color: #004d00 !important;
+        text-decoration: none !important;
+        font-size: 11px !important;
+        margin: 0 2px !important;
     `;
 
-    const campaignImageStyle = `
-        width: 180px !important;
-        height: 100px !important;
-        object-fit: cover;
-    `;
-
-    const profileImageStyle = `
-        height: 35px !important;
-        width: 35px !important;
-        border-radius: 50%;
-        object-fit: cover;
-    `;
-
-    const textContainerStyle = `
-        width: 350px !important;
-        max-width: 350px !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    `;
+    // Generate social media links HTML
+    const socialLinks = [
+        { name: 'Facebook', link: facebookLink },
+        { name: 'Instagram', link: instagramLink },
+        { name: 'Twitter', link: twitterLink },
+        { name: 'LinkedIn', link: linkedinLink }
+    ]
+    .filter(social => social.link)
+    .map(social => `<a href="${social.link}" style="${socialLinkStyle}" target="_blank">${social.name}</a>`)
+    .join(' | ');
 
         switch(template) {
         case '1':
