@@ -123,10 +123,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const twitterLink = twitter || '';
         const linkedinLink = linkedin || '';
 
-        renderTemplate(template, profile, name, title, phone, campaignName, 
-            campaignDescription, campaignStartDate, campaignEndDate, 
-            campaignLink, logo, campaignImage, facebook, instagram, 
-            twitter, linkedin, companyPhone, companyAddress);
+        renderTemplate(template, profileImg, name, title, phone, campaignName, 
+    campaignDescription, campaignStartDate, campaignEndDate, 
+    campaignLink, logoImg, campaignImg, facebookLink, instagramLink, 
+    twitterLink, linkedinLink, companyPhone, companyAddress);
         }
 
         function renderTemplate(template, profileImg, name, title, phone, campaignName, 
